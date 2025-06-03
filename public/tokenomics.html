@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tokenomics - MINIGAME Web3 Gaming Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Base styles */
+    :root {
+      --neon-purple: #b829f7;
+      --neon-green: #39ff14;
+      --dark-bg: #0a0a0a;
+      --electric-blue: #00ffff;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--dark-bg);
+      color: white;
+      font-family: 'Rajdhani', sans-serif;
+      line-height: 1.6;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Orbitron', sans-serif;
+      margin-top: 0;
+    }
+    
+    /* Utility classes */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .neon-purple-glow {
+      text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple), 0 0 15px var(--neon-purple);
+    }
+    
+    .neon-green-glow {
+      text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green), 0 0 15px var(--neon-green);
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 4px;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary {
+      background-color: transparent;
+      border: 2px solid var(--neon-purple);
+      color: white;
+      box-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple);
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--neon-purple);
+      box-shadow: 0 0 10px var(--neon-purple), 0 0 20px var(--neon-purple), 0 0 30px var(--neon-purple);
+    }
+    
+    .btn-secondary {
+      background-color: transparent;
+      border: 2px solid var(--neon-green);
+      color: white;
+      box-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
+    }
+    
+    .btn-secondary:hover {
+      background-color: var(--neon-green);
+      color: black;
+      box-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green), 0 0 30px var(--neon-green);
+    }
+    
+    .cyberpunk-card {
+      background-color: rgba(10, 10, 10, 0.8);
+      border-left: 4px solid var(--neon-purple);
+      padding: 24px;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(184, 41, 247, 0.3);
+    }
+    
+    .cyberpunk-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-purple), transparent);
+    }
+    
+    .cyberpunk-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+    }
+    
+    .cyberpunk-heading {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    
+    .cyberpunk-heading::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--neon-green), transparent);
+    }
+    
+    /* Header styles */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background-color: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(184, 41, 247, 0.3);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    
+    .logo .purple {
+      color: var(--neon-purple);
+    }
+    
+    .logo .green {
+      color: var(--neon-green);
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    nav ul li {
+      margin-left: 30px;
+    }
+    
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    nav ul li a:hover {
+      color: var(--neon-green);
+    }
+    
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    
+    /* Page header */
+    .page-header {
+      padding: 140px 0 60px;
+      text-align: center;
+      background: linear-gradient(to bottom, rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 1)), url('circuit-pattern.png');
+      background-size: cover;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--neon-purple), transparent);
+    }
+    
+    .page-header h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    
+    .page-header p {
+      font-size: 18px;
+      max-width: 800px;
+      margin: 0 auto;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    /* Token section */
+    .token-section {
+      padding: 80px 0;
+    }
+    
+    .token-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+    
+    .token-card {
+      height: 100%;
+    }
+    
+    .token-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-weight: bold;
+      font-size: 24px;
+    }
+    
+    .spinz-icon {
+      background-color: rgba(184, 41, 247, 0.2);
+      border: 2px solid var(--neon-purple);
+      box-shadow: 0 0 15px rgba(184, 41, 247, 0.5);
+      color: var(--neon-purple);
+    }
+    
+    .wheel-icon {
+      background-color: rgba(57, 255, 20, 0.2);
+      border: 2px solid var(--neon-green);
+      box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);
+      color: var(--neon-green);
+    }
+    
+    .token-card h3 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+    
+    .token-card p {
+      margin-bottom: 25px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    /* Distribution section */
+    .distribution-section {
+      padding: 80px 0;
+      background-color: rgba(10, 10, 10, 0.5);
+      border-top: 1px solid rgba(184, 41, 247, 0.2);
+      border-bottom: 1px solid rgba(57, 255, 20, 0.2);
+    }
+    
+    .distribution-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    
+    .distribution-chart {
+      position: relative;
+      width: 100%;
+      padding-bottom: 100%;
+      border-radius: 50%;
+      background: conic-gradient(
+        #b829f7 0% 25%,
+        #39ff14 25% 45%,
+        #00ffff 45% 65%,
+        #ff00ff 65% 75%,
+        #ff6b6b 75% 85%,
+        #ffd166 85% 95%,
+        #06d6a0 95% 100%
+      );
+      box-shadow: 0 0 30px rgba(184, 41, 247, 0.4);
+    }
+    
+    .distribution-chart::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 30%;
+      height: 30%;
+      background-color: var(--dark-bg);
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+    
+    .distribution-legend {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .legend-color {
+      width: 20px;
+      height: 20px;
+      margin-right: 15px;
+      border-radius: 4px;
+    }
+    
+    .legend-text {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+    
+    .legend-value {
+      font-weight: bold;
+    }
+    
+    /* Multiplier section */
+    .multiplier-section {
+      padding: 80px 0;
+    }
+    
+    .multiplier-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+    }
+    
+    .multiplier-table th,
+    .multiplier-table td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid rgba(184, 41, 247, 0.3);
+    }
+    
+    .multiplier-table th {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--neon-green);
+      font-weight: 600;
+    }
+    
+    .multiplier-table tr:hover {
+      background-color: rgba(184, 41, 247, 0.1);
+    }
+    
+    .multiplier-value {
+      color: var(--neon-purple);
+      font-weight: bold;
+    }
+    
+    /* Calculator section */
+    .calculator-section {
+      padding: 80px 0;
+      background-color: rgba(10, 10, 10, 0.5);
+      border-top: 1px solid rgba(57, 255, 20, 0.2);
+      border-bottom: 1px solid rgba(184, 41, 247, 0.2);
+    }
+    
+    .calculator-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .calculator-form {
+      margin-bottom: 30px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(184, 41, 247, 0.5);
+      border-radius: 4px;
+      color: white;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+    }
+    
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--neon-purple);
+      box-shadow: 0 0 10px rgba(184, 41, 247, 0.5);
+    }
+    
+    .calculator-result {
+      padding: 20px;
+      background-color: rgba(57, 255, 20, 0.1);
+      border-left: 4px solid var(--neon-green);
+      border-radius: 4px;
+    }
+    
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    
+    .result-value {
+      font-weight: bold;
+      color: var(--neon-green);
+    }
+    
+    /* CTA section */
+    .cta {
+      padding: 100px 0;
+      text-align: center;
+    }
+    
+    .cta h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    
+    .cta p {
+      font-size: 18px;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--dark-bg);
+      border-top: 1px solid rgba(57, 255, 20, 0.3);
+      padding: 60px 0 30px;
+    }
+    
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+    
+    .footer-column h3 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .footer-column p {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: var(--neon-green);
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .social-link {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 24px;
+      transition: color 0.3s ease;
+    }
+    
+    .social-link:hover {
+      color: var(--neon-purple);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(184, 41, 247, 0.3);
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .distribution-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      nav ul {
+        display: none;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .page-header h1 {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <div class="logo">
+        <span class="purple">MINI</span><span class="green">GAME</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="games.html">Games</a></li>
+          <li><a href="tokenomics.html">Tokenomics</a></li>
+          <li><a href="nft.html">NFTs</a></li>
+          <li><a href="lootwheel.html">Lootwheel</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </nav>
+      <button class="btn btn-primary">Connect Wallet</button>
+      <button class="mobile-menu-btn">☰</button>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1 class="cyberpunk-heading">Tokenomics</h1>
+      <p>Explore the economic system powering the MINIGAME ecosystem with our dual-token model.</p>
+    </div>
+  </section>
+
+  <!-- Token Section -->
+  <section class="token-section">
+    <div class="container">
+      <h2 class="cyberpunk-heading text-center">Our Tokens</h2>
+      <div class="token-grid">
+        <div class="cyberpunk-card token-card">
+          <div class="token-icon spinz-icon">SPINZ</div>
+          <h3 style="color: var(--neon-purple);">SpinZ Token</h3>
+          <p>The main trading token of the MINIGAME ecosystem with a total supply of 1 billion. SPINZ is a fully tradable token that powers the entire platform.</p>
+          <p>Holding SPINZ tokens increases your reward multiplier, allowing you to earn more WHEEL tokens while playing games.</p>
+          <p>SPINZ can be acquired through trading on PumpSwap, winning on the lootwheel, or participating in community events.</p>
+        </div>
+        <div class="cyberpunk-card token-card">
+          <div class="token-icon wheel-icon">WHEEL</div>
+          <h3 style="color: var(--neon-green);">WheelZ Token</h3>
+          <p>The in-game reward token earned through gameplay. WHEEL is primarily used as in-game currency within the MINIGAME ecosystem.</p>
+          <p>Earn WHEEL tokens by playing our games, with rewards based on your performance and SPINZ holdings.</p>
+          <p>Spend your WHEEL tokens on the lootwheel for a chance to win NFTs, game boosts, or additional SPINZ tokens.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Distribution Section -->
+  <section class="distribution-section">
+    <div class="container">
+      <h2 class="cyberpunk-heading text-center">SPINZ Token Distribution</h2>
+      <p class="text-center" style="max-width: 800px; margin: 0 auto 40px; color: rgba(255, 255, 255, 0.8);">
+        Total supply: 1,000,000,000 SPINZ tokens
+      </p>
+      <div class="distribution-grid">
+        <div class="distribution-chart"></div>
+        <ul class="distribution-legend">
+          <li class="legend-item">
+            <div class="legend-color" style="background-color: #b829f7;"></div>
+            <div class="legend-text">
+              <span>Public Launch (Pump.fun)</span>
+              <span class="legend-value">25% (250,000,000)</span>
+            </div>
+          </li>
+          <li class="legend-item">
+            <div class="legend-color" style="background-color: #39ff14;"></div>
+            <div class="legend-text">
+              <span>Liquidity / Bonding (PumpSwap)</span>
+              <span class="legend-value">20% (200,000,000)</span>
+            </div>
+          </li>
+          <li class="legend-item">
+            <div class="legend-color" style="background-color: #00ffff;"></div>
+            <div class="legend-text">
+              <span>Community / Airdrop / Staking</span>
+              <span class="legend-value">20% (200,000,000)</span>
+            </div>
+          </li>
+          <li class="legend-item">
+            <div class="legend-color" style="background-color: #ff00ff;"></div>
+            <div class="legend-text">
+              <span>Team & Founders (with vesting)</span>
+              <span class="legend-value">10% (100,000,000)</span>
+            </div>
+          </li>
+          <li class="legend-item">
+            <div class="legend-color" style="background-color: #ff6b6b;"></div>
+            <div class="legend-text">
+              <span>Marketing & Partners</span>
+              <span class="legend-value">10% (100,000,000)</span>
+            </div>
+          </li>
+          <li class="legend-item">
+            <div class="legend-color" style="background-color: #ffd166;"></div>
+            <div class="legend-text">
+              <span>Development / Reserve</span>
+              <span class="legend-value">10% (100,000,000)</span>
+            </div>
+          </li>
+          <li class="legend-item">
+            <div class="legend-color" style="background-color: #06d6a0;"></div>
+            <div class="legend-text">
+              <span>Advisors / Bounties</span>
+              <span class="legend-value">5% (50,000,000)</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Multiplier Section -->
+  <section class="multiplier-section">
+    <div class="container">
+      <h2 class="cyberpunk-heading text-center">Token Multiplier System</h2>
+      <p class="text-center" style="max-width: 800px; margin: 0 auto 40px; color: rgba(255, 255, 255, 0.8);">
+        The amount of WHEEL tokens you earn depends on your SPINZ holdings. The more SPINZ you hold, the higher your reward multiplier.
+      </p>
+      <div class="cyberpunk-card">
+        <table class="multiplier-table">
+          <thead>
+            <tr>
+              <th>SPINZ in Wallet</th>
+              <th>Multiplier</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0 – 99,999</td>
+              <td class="multiplier-value">0.1×</td>
+            </tr>
+            <tr>
+              <td>100,000</td>
+              <td class="multiplier-value">1×</td>
+            </tr>
+            <tr>
+              <td>100,001 – 499,999</td>
+              <td class="multiplier-value">2×</td>
+            </tr>
+            <tr>
+              <td>500,000 – 1,499,999</td>
+              <td class="multiplier-value">3×</td>
+            </tr>
+            <tr>
+              <td>1,500,000 – 4,999,999</td>
+              <td class="multiplier-value">4×</td>
+            </tr>
+            <tr>
+              <td>5,000,000 – 24,999,999</td>
+              <td class="multiplier-value">5×</td>
+            </tr>
+            <tr>
+              <td>≥ 25,000,000</td>
+              <td class="multiplier-value">8×</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculator Section -->
+  <section class="calculator-section">
+    <div class="container">
+      <h2 class="cyberpunk-heading text-center">Reward Calculator</h2>
+      <p class="text-center" style="max-width: 800px; margin: 0 auto 40px; color: rgba(255, 255, 255, 0.8);">
+        Calculate your potential WHEEL token earnings based on your game performance and SPINZ holdings.
+      </p>
+      <div class="calculator-container">
+        <div class="cyberpunk-card">
+          <div class="calculator-form">
+            <div class="form-group">
+              <label for="base-reward">Base Game Reward (WHEEL tokens)</label>
+              <input type="number" id="base-reward" placeholder="Enter base reward amount" value="100">
+            </div>
+            <div class="form-group">
+              <label for="spinz-balance">Your SPINZ Balance</label>
+              <input type="number" id="spinz-balance" placeholder="Enter your SPINZ balance" value="500000">
+            </div>
+            <button class="btn btn-primary" id="calculate-btn" style="width: 100%;">Calculate Rewards</button>
+          </div>
+          <div class="calculator-result" id="result-container">
+            <div class="result-row">
+              <span>Base Reward:</span>
+              <span class="result-value" id="result-base">100 WHEEL</span>
+            </div>
+            <div class="result-row">
+              <span>Your SPINZ Balance:</span>
+              <span class="result-value" id="result-balance">500,000 SPINZ</span>
+            </div>
+            <div class="result-row">
+              <span>Your Multiplier:</span>
+              <span class="result-value" id="result-multiplier">3×</span>
+            </div>
+            <div class="result-row" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(57, 255, 20, 0.3);">
+              <span>Total Reward:</span>
+              <span class="result-value" id="result-total" style="font-size: 20px;">300 WHEEL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <h2 class="cyberpunk-heading">Ready to Earn?</h2>
+      <p>Connect your wallet and start playing to earn WHEEL tokens and build your SPINZ holdings.</p>
+      <a href="#" class="btn btn-primary">Connect Wallet</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h3 class="cyberpunk-heading">MINIGAME</h3>
+          <p>Web3 Gaming Platform with 3-minute games on Solana blockchain.</p>
+        </div>
+        <div class="footer-column">
+          <h3 style="color: var(--neon-green);">Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="games.html">Games</a></li>
+            <li><a href="tokenomics.html">Tokenomics</a></li>
+            <li><a href="nft.html">NFTs</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3 style="color: var(--neon-green);">Resources</h3>
+          <ul class="footer-links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3 style="color: var(--neon-green);">Connect With Us</h3>
+          <div class="social-links">
+            <a href="https://t.me/MINIGAME_sol" target="_blank" rel="noopener noreferrer" class="social-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.5 15.5a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"></path>
+                <path d="M18.5 12h-16"></path>
+                <path d="M2.5 8v8"></path>
+                <path d="M8.5 16.5v-9"></path>
+                <path d="M14.5 12H8"></path>
+              </svg>
+            </a>
+            <a href="https://x.com/MINIGAME_sol" target="_blank" rel="noopener noreferrer" class="social-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 MINIGAME. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Simple mobile menu toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      const navMenu = document.querySelector('nav ul');
+      
+      if (mobileMenuBtn && navMenu) {
+        mobileMenuBtn.addEventListener('click', function() {
+          navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+          if (navMenu.style.display === 'flex') {
+            navMenu.style.position = 'absolute';
+            navMenu.style.top = '100%';
+            navMenu.style.left = '0';
+            navMenu.style.right = '0';
+            navMenu.style.flexDirection = 'column';
+            navMenu.style.backgroundColor = 'rgba(10, 10, 10, 0.95)';
+            navMenu.style.padding = '20px';
+            navMenu.style.zIndex = '1000';
+            
+            const navItems = navMenu.querySelectorAll('li');
+            navItems.forEach(item => {
+              item.style.margin = '10px 0';
+            });
+          }
+        });
+      }
+      
+      // Reward calculator functionality
+      const calculateBtn = document.getElementById('calculate-btn');
+      if (calculateBtn) {
+        calculateBtn.addEventListener('click', function() {
+          const baseReward = parseFloat(document.getElementById('base-reward').value) || 0;
+          const spinzBalance = parseFloat(document.getElementById('spinz-balance').value) || 0;
+          
+          // Determine multiplier based on SPINZ balance
+          let multiplier = 0.1;
+          if (spinzBalance >= 25000000) {
+            multiplier = 8;
+          } else if (spinzBalance >= 5000000) {
+            multiplier = 5;
+          } else if (spinzBalance >= 1500000) {
+            multiplier = 4;
+          } else if (spinzBalance >= 500000) {
+            multiplier = 3;
+          } else if (spinzBalance >= 100001) {
+            multiplier = 2;
+          } else if (spinzBalance >= 100000) {
+            multiplier = 1;
+          }
+          
+          const totalReward = baseReward * multiplier;
+          
+          // Update result display
+          document.getElementById('result-base').textContent = `${baseReward} WHEEL`;
+          document.getElementById('result-balance').textContent = `${spinzBalance.toLocaleString()} SPINZ`;
+          document.getElementById('result-multiplier').textContent = `${multiplier}×`;
+          document.getElementById('result-total').textContent = `${totalReward} WHEEL`;
+          
+          // Show result with animation
+          const resultContainer = document.getElementById('result-container');
+          resultContainer.style.animation = 'none';
+          setTimeout(() => {
+            resultContainer.style.animation = 'pulse 1s';
+          }, 10);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lootwheel - MINIGAME Web3 Gaming Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Base styles */
+    :root {
+      --neon-purple: #b829f7;
+      --neon-green: #39ff14;
+      --dark-bg: #0a0a0a;
+      --electric-blue: #00ffff;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--dark-bg);
+      color: white;
+      font-family: 'Rajdhani', sans-serif;
+      line-height: 1.6;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Orbitron', sans-serif;
+      margin-top: 0;
+    }
+    
+    /* Utility classes */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .neon-purple-glow {
+      text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple), 0 0 15px var(--neon-purple);
+    }
+    
+    .neon-green-glow {
+      text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green), 0 0 15px var(--neon-green);
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 4px;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary {
+      background-color: transparent;
+      border: 2px solid var(--neon-purple);
+      color: white;
+      box-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple);
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--neon-purple);
+      box-shadow: 0 0 10px var(--neon-purple), 0 0 20px var(--neon-purple), 0 0 30px var(--neon-purple);
+    }
+    
+    .btn-secondary {
+      background-color: transparent;
+      border: 2px solid var(--neon-green);
+      color: white;
+      box-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
+    }
+    
+    .btn-secondary:hover {
+      background-color: var(--neon-green);
+      color: black;
+      box-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green), 0 0 30px var(--neon-green);
+    }
+    
+    .cyberpunk-card {
+      background-color: rgba(10, 10, 10, 0.8);
+      border-left: 4px solid var(--neon-purple);
+      padding: 24px;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(184, 41, 247, 0.3);
+    }
+    
+    .cyberpunk-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-purple), transparent);
+    }
+    
+    .cyberpunk-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+    }
+    
+    .cyberpunk-heading {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    
+    .cyberpunk-heading::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--neon-green), transparent);
+    }
+    
+    /* Header styles */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background-color: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(184, 41, 247, 0.3);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    
+    .logo .purple {
+      color: var(--neon-purple);
+    }
+    
+    .logo .green {
+      color: var(--neon-green);
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    nav ul li {
+      margin-left: 30px;
+    }
+    
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    nav ul li a:hover {
+      color: var(--neon-green);
+    }
+    
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    
+    /* Page header */
+    .page-header {
+      padding: 140px 0 60px;
+      text-align: center;
+      background: linear-gradient(to bottom, rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 1)), url('circuit-pattern.png');
+      background-size: cover;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--neon-purple), transparent);
+    }
+    
+    .page-header h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    
+    .page-header p {
+      font-size: 18px;
+      max-width: 800px;
+      margin: 0 auto;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    /* Lootwheel section */
+    .lootwheel-section {
+      padding: 80px 0;
+    }
+    
+    .lootwheel-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    
+    .wheel-container {
+      position: relative;
+    }
+    
+    .wheel {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(184, 41, 247, 0.5);
+    }
+    
+    .wheel-outer {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 8px solid var(--neon-purple);
+      box-shadow: 0 0 15px var(--neon-purple);
+    }
+    
+    .wheel-inner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20%;
+      height: 20%;
+      background-color: var(--dark-bg);
+      border-radius: 50%;
+      border: 4px solid var(--neon-green);
+      box-shadow: 0 0 15px var(--neon-green);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .wheel-segment {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 50%);
+      transform-origin: bottom left;
+    }
+    
+    .wheel-segment:nth-child(1) {
+      background-color: rgba(184, 41, 247, 0.5);
+      transform: rotate(0deg);
+    }
+    
+    .wheel-segment:nth-child(2) {
+      background-color: rgba(57, 255, 20, 0.5);
+      transform: rotate(45deg);
+    }
+    
+    .wheel-segment:nth-child(3) {
+      background-color: rgba(0, 255, 255, 0.5);
+      transform: rotate(90deg);
+    }
+    
+    .wheel-segment:nth-child(4) {
+      background-color: rgba(255, 0, 255, 0.5);
+      transform: rotate(135deg);
+    }
+    
+    .wheel-segment:nth-child(5) {
+      background-color: rgba(255, 107, 107, 0.5);
+      transform: rotate(180deg);
+    }
+    
+    .wheel-segment:nth-child(6) {
+      background-color: rgba(255, 209, 102, 0.5);
+      transform: rotate(225deg);
+    }
+    
+    .wheel-segment:nth-child(7) {
+      background-color: rgba(6, 214, 160, 0.5);
+      transform: rotate(270deg);
+    }
+    
+    .wheel-segment:nth-child(8) {
+      background-color: rgba(17, 138, 178, 0.5);
+      transform: rotate(315deg);
+    }
+    
+    .wheel-pointer {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-top: 30px solid var(--neon-green);
+      z-index: 5;
+    }
+    
+    .spin-btn {
+      margin-top: 30px;
+      display: block;
+      width: 150px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .wheel-info h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: var(--neon-purple);
+    }
+    
+    .wheel-info p {
+      margin-bottom: 20px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    /* Rewards section */
+    .rewards-section {
+      padding: 80px 0;
+      background-color: rgba(10, 10, 10, 0.5);
+      border-top: 1px solid rgba(184, 41, 247, 0.2);
+      border-bottom: 1px solid rgba(57, 255, 20, 0.2);
+    }
+    
+    .rewards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+    
+    .reward-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 24px;
+    }
+    
+    .nft-icon {
+      background-color: rgba(184, 41, 247, 0.2);
+      border: 2px solid var(--neon-purple);
+      box-shadow: 0 0 15px rgba(184, 41, 247, 0.5);
+      color: var(--neon-purple);
+    }
+    
+    .spinz-icon {
+      background-color: rgba(57, 255, 20, 0.2);
+      border: 2px solid var(--neon-green);
+      box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);
+      color: var(--neon-green);
+    }
+    
+    .boost-icon {
+      background-color: rgba(0, 255, 255, 0.2);
+      border: 2px solid var(--electric-blue);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+      color: var(--electric-blue);
+    }
+    
+    .reward-card {
+      text-align: center;
+    }
+    
+    .reward-card h3 {
+      margin-bottom: 15px;
+    }
+    
+    /* How it works section */
+    .how-it-works {
+      padding: 80px 0;
+    }
+    
+    .steps-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .step-item {
+      display: flex;
+      margin-bottom: 40px;
+    }
+    
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(57, 255, 20, 0.1);
+      border: 2px solid var(--neon-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 20px;
+      font-weight: bold;
+      color: var(--neon-green);
+      flex-shrink: 0;
+    }
+    
+    .step-content h3 {
+      margin-bottom: 10px;
+      color: var(--neon-purple);
+    }
+    
+    /* Multiplier section */
+    .multiplier-section {
+      padding: 80px 0;
+      background-color: rgba(10, 10, 10, 0.5);
+      border-top: 1px solid rgba(57, 255, 20, 0.2);
+      border-bottom: 1px solid rgba(184, 41, 247, 0.2);
+    }
+    
+    .multiplier-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    
+    .multiplier-info h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: var(--neon-purple);
+    }
+    
+    .multiplier-info p {
+      margin-bottom: 20px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .multiplier-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    
+    .multiplier-table th,
+    .multiplier-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid rgba(184, 41, 247, 0.3);
+    }
+    
+    .multiplier-table th {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--neon-green);
+      font-weight: 600;
+    }
+    
+    .multiplier-table tr:hover {
+      background-color: rgba(184, 41, 247, 0.1);
+    }
+    
+    .multiplier-value {
+      color: var(--neon-purple);
+      font-weight: bold;
+    }
+    
+    .multiplier-chart {
+      width: 100%;
+      height: 300px;
+      background-color: rgba(10, 10, 10, 0.5);
+      border: 1px solid rgba(184, 41, 247, 0.3);
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .chart-bar {
+      position: absolute;
+      bottom: 0;
+      width: 10%;
+      background: linear-gradient(to top, var(--neon-purple), var(--neon-green));
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+    }
+    
+    .chart-bar:nth-child(1) {
+      height: 5%;
+      left: 5%;
+    }
+    
+    .chart-bar:nth-child(2) {
+      height: 20%;
+      left: 20%;
+    }
+    
+    .chart-bar:nth-child(3) {
+      height: 40%;
+      left: 35%;
+    }
+    
+    .chart-bar:nth-child(4) {
+      height: 60%;
+      left: 50%;
+    }
+    
+    .chart-bar:nth-child(5) {
+      height: 80%;
+      left: 65%;
+    }
+    
+    .chart-bar:nth-child(6) {
+      height: 100%;
+      left: 80%;
+    }
+    
+    /* CTA section */
+    .cta {
+      padding: 100px 0;
+      text-align: center;
+    }
+    
+    .cta h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    
+    .cta p {
+      font-size: 18px;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--dark-bg);
+      border-top: 1px solid rgba(57, 255, 20, 0.3);
+      padding: 60px 0 30px;
+    }
+    
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+    
+    .footer-column h3 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .footer-column p {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: var(--neon-green);
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .social-link {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 24px;
+      transition: color 0.3s ease;
+    }
+    
+    .social-link:hover {
+      color: var(--neon-purple);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(184, 41, 247, 0.3);
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    /* Animation */
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    
+    .spinning {
+      animation: spin 4s cubic-bezier(0.1, 0.7, 0.1, 1) forwards;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .lootwheel-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .multiplier-container {
+        grid-template-columns: 1fr;
+      }
+      
+      nav ul {
+        display: none;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .page-header h1 {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <div class="logo">
+        <span class="purple">MINI</span><span class="green">GAME</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="games.html">Games</a></li>
+          <li><a href="tokenomics.html">Tokenomics</a></li>
+          <li><a href="nft.html">NFTs</a></li>
+          <li><a href="lootwheel.html">Lootwheel</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </nav>
+      <button class="btn btn-primary">Connect Wallet</button>
+      <button class="mobile-menu-btn">☰</button>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1 class="cyberpunk-heading">Lootwheel</h1>
+      <p>Spin the wheel to win NFTs, game boosts, or additional SPINZ tokens using your earned WHEEL tokens.</p>
+    </div>
+  </section>
+
+  <!-- Lootwheel Section -->
+  <section class="lootwheel-section">
+    <div class="container">
+      <div class="lootwheel-container">
+        <div class="wheel-container">
+          <div class="wheel" id="lootwheel">
+            <div class="wheel-segment"></div>
+            <div class="wheel-segment"></div>
+            <div class="wheel-segment"></div>
+            <div class="wheel-segment"></div>
+            <div class="wheel-segment"></div>
+            <div class="wheel-segment"></div>
+            <div class="wheel-segment"></div>
+            <div class="wheel-segment"></div>
+            <div class="wheel-outer"></div>
+            <div class="wheel-inner">SPIN</div>
+            <div class="wheel-pointer"></div>
+          </div>
+          <button class="btn btn-secondary spin-btn" id="spin-button">Spin (100 WHEEL)</button>
+        </div>
+        <div class="wheel-info">
+          <h2>Spin to Win</h2>
+          <p>The lootwheel is your gateway to exciting rewards in the MINIGAME ecosystem. Spend your hard-earned WHEEL tokens for a chance to win valuable NFTs, SPINZ tokens, and game boosts.</p>
+          <p>Each spin costs 100 WHEEL tokens and gives you a chance to win one of the following rewards:</p>
+          <ul>
+            <li>Rare NFTs with special in-game abilities</li>
+            <li>SPINZ tokens to increase your reward multiplier</li>
+            <li>Game boosts for temporary advantages</li>
+            <li>Exclusive character skins and cosmetics</li>
+          </ul>
+          <p>The more SPINZ tokens you hold, the better your chances of winning rare rewards!</p>
+          <button class="btn btn-primary">Connect Wallet to Spin</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rewards Section -->
+  <section class="rewards-section">
+    <div class="container">
+      <h2 class="cyberpunk-heading text-center">Possible Rewards</h2>
+      <div class="rewards-grid">
+        <div class="cyberpunk-card reward-card">
+          <div class="reward-icon nft-icon">NFT</div>
+          <h3>NFT Rewards</h3>
+          <p>Win rare meme-character NFTs that unlock special abilities in games, such as double speed, extra points, or immunity to attacks.</p>
+        </div>
+        <div class="cyberpunk-card reward-card">
+          <div class="reward-icon spinz-icon">SPINZ</div>
+          <h3>SPINZ Tokens</h3>
+          <p>Win SPINZ tokens to increase your reward multiplier and earn more WHEEL tokens while playing games.</p>
+        </div>
+        <div class="cyberpunk-card reward-card">
+          <div class="reward-icon boost-icon">BOOST</div>
+          <h3>Game Boosts</h3>
+          <p>Win temporary boosts that give you advantages in games, such as increased size, faster movement, or bonus points.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works">
+    <div class="container">
+      <h2 class="cyberpunk-heading text-center">How It Works</h2>
+      <div class="steps-container">
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Play Games to Earn WHEEL</h3>
+            <p>Play any of our 3-minute games to earn WHEEL tokens. The amount you earn depends on your performance and your SPINZ token multiplier.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Connect Your Wallet</h3>
+            <p>Connect your Solana wallet (e.g., Phantom) to the MINIGAME platform to access the lootwheel and spend your WHEEL tokens.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Spin the Wheel</h3>
+            <p>Spend 100 WHEEL tokens to spin the lootwheel and get a chance to win valuable rewards.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Claim Your Reward</h3>
+            <p>Your reward will be automatically sent to your connected wallet. NFTs and boosts will be available for use immediately in games.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Multiplier Section -->
+  <section class="multiplier-section">
+    <div class="container">
+      <h2 class="cyberpunk-heading text-center">SPINZ Multiplier Effect</h2>
+      <div class="multiplier-container">
+        <div class="multiplier-info">
+          <h2>Hold SPINZ, Get Better Rewards</h2>
+          <p>The more SPINZ tokens you hold, the higher your chances of winning rare rewards on the lootwheel. Your SPINZ balance affects both your in-game WHEEL earnings and your lootwheel luck.</p>
+          <table class="multiplier-table">
+            <thead>
+              <tr>
+                <th>SPINZ in Wallet</th>
+                <th>Multiplier</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0 – 99,999</td>
+                <td class="multiplier-value">0.1×</td>
+              </tr>
+              <tr>
+                <td>100,000</td>
+                <td class="multiplier-value">1×</td>
+              </tr>
+              <tr>
+                <td>100,001 – 499,999</td>
+                <td class="multiplier-value">2×</td>
+              </tr>
+              <tr>
+                <td>500,000 – 1,499,999</td>
+                <td class="multiplier-value">3×</td>
+              </tr>
+              <tr>
+                <td>1,500,000 – 4,999,999</td>
+                <td class="multiplier-value">4×</td>
+              </tr>
+              <tr>
+                <td>5,000,000 – 24,999,999</td>
+                <td class="multiplier-value">5×</td>
+              </tr>
+              <tr>
+                <td>≥ 25,000,000</td>
+                <td class="multiplier-value">8×</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="multiplier-chart">
+          <div class="chart-bar"></div>
+          <div class="chart-bar"></div>
+          <div class="chart-bar"></div>
+          <div class="chart-bar"></div>
+          <div class="chart-bar"></div>
+          <div class="chart-bar"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <h2 class="cyberpunk-heading">Ready to Spin?</h2>
+      <p>Connect your wallet and start spinning the lootwheel to win exciting rewards.</p>
+      <a href="#" class="btn btn-primary">Connect Wallet</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h3 class="cyberpunk-heading">MINIGAME</h3>
+          <p>Web3 Gaming Platform with 3-minute games on Solana blockchain.</p>
+        </div>
+        <div class="footer-column">
+          <h3 style="color: var(--neon-green);">Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="games.html">Games</a></li>
+            <li><a href="tokenomics.html">Tokenomics</a></li>
+            <li><a href="nft.html">NFTs</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3 style="color: var(--neon-green);">Resources</h3>
+          <ul class="footer-links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3 style="color: var(--neon-green);">Connect With Us</h3>
+          <div class="social-links">
+            <a href="https://t.me/MINIGAME_sol" target="_blank" rel="noopener noreferrer" class="social-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.5 15.5a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"></path>
+                <path d="M18.5 12h-16"></path>
+                <path d="M2.5 8v8"></path>
+                <path d="M8.5 16.5v-9"></path>
+                <path d="M14.5 12H8"></path>
+              </svg>
+            </a>
+            <a href="https://x.com/MINIGAME_sol" target="_blank" rel="noopener noreferrer" class="social-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 MINIGAME. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Simple mobile menu toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      const navMenu = document.querySelector('nav ul');
+      
+      if (mobileMenuBtn && navMenu) {
+        mobileMenuBtn.addEventListener('click', function() {
+          navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+          if (navMenu.style.display === 'flex') {
+            navMenu.style.position = 'absolute';
+            navMenu.style.top = '100%';
+            navMenu.style.left = '0';
+            navMenu.style.right = '0';
+            navMenu.style.flexDirection = 'column';
+            navMenu.style.backgroundColor = 'rgba(10, 10, 10, 0.95)';
+            navMenu.style.padding = '20px';
+            navMenu.style.zIndex = '1000';
+            
+            const navItems = navMenu.querySelectorAll('li');
+            navItems.forEach(item => {
+              item.style.margin = '10px 0';
+            });
+          }
+        });
+      }
+      
+      // Lootwheel spin functionality
+      const spinButton = document.getElementById('spin-button');
+      const lootwheel = document.getElementById('lootwheel');
+      
+      if (spinButton && lootwheel) {
+        spinButton.addEventListener('click', function() {
+          // Disable button during spin
+          spinButton.disabled = true;
+          spinButton.textContent = 'Spinning...';
+          
+          // Generate random rotation (between 2 and 10 full rotations + random segment)
+          const rotations = 2 + Math.floor(Math.random() * 8);
+          const extraDegrees = Math.floor(Math.random() * 360);
+          const totalDegrees = rotations * 360 + extraDegrees;
+          
+          // Apply spinning animation
+          lootwheel.style.transition = 'transform 4s cubic-bezier(0.1, 0.7, 0.1, 1)';
+          lootwheel.style.transform = `rotate(${totalDegrees}deg)`;
+          
+          // After animation completes
+          setTimeout(() => {
+            // Determine winning segment based on final rotation
+            const finalPosition = extraDegrees;
+            let reward = '';
+            
+            if (finalPosition < 45) {
+              reward = 'Rare NFT';
+            } else if (finalPosition < 90) {
+              reward = '500 SPINZ';
+            } else if (finalPosition < 135) {
+              reward = 'Speed Boost';
+            } else if (finalPosition < 180) {
+              reward = '100 SPINZ';
+            } else if (finalPosition < 225) {
+              reward = 'Common NFT';
+            } else if (finalPosition < 270) {
+              reward = '200 SPINZ';
+            } else if (finalPosition < 315) {
+              reward = 'Size Boost';
+            } else {
+              reward = '300 SPINZ';
+            }
+            
+            // Show result (in a real implementation, this would be a modal or notification)
+            alert(`Congratulations! You won: ${reward}`);
+            
+            // Reset button
+            spinButton.disabled = false;
+            spinButton.textContent = 'Spin (100 WHEEL)';
+            
+            // Reset wheel position (without animation)
+            setTimeout(() => {
+              lootwheel.style.transition = 'none';
+              lootwheel.style.transform = 'rotate(0deg)';
+            }, 100);
+          }, 4000);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

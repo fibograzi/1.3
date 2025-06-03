@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ - MINIGAME Web3 Gaming Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Base styles */
+    :root {
+      --neon-purple: #b829f7;
+      --neon-green: #39ff14;
+      --dark-bg: #0a0a0a;
+      --electric-blue: #00ffff;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--dark-bg);
+      color: white;
+      font-family: 'Rajdhani', sans-serif;
+      line-height: 1.6;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Orbitron', sans-serif;
+      margin-top: 0;
+    }
+    
+    /* Utility classes */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .neon-purple-glow {
+      text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple), 0 0 15px var(--neon-purple);
+    }
+    
+    .neon-green-glow {
+      text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green), 0 0 15px var(--neon-green);
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 4px;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary {
+      background-color: transparent;
+      border: 2px solid var(--neon-purple);
+      color: white;
+      box-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple);
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--neon-purple);
+      box-shadow: 0 0 10px var(--neon-purple), 0 0 20px var(--neon-purple), 0 0 30px var(--neon-purple);
+    }
+    
+    .btn-secondary {
+      background-color: transparent;
+      border: 2px solid var(--neon-green);
+      color: white;
+      box-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
+    }
+    
+    .btn-secondary:hover {
+      background-color: var(--neon-green);
+      color: black;
+      box-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green), 0 0 30px var(--neon-green);
+    }
+    
+    .cyberpunk-card {
+      background-color: rgba(10, 10, 10, 0.8);
+      border-left: 4px solid var(--neon-purple);
+      padding: 24px;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(184, 41, 247, 0.3);
+    }
+    
+    .cyberpunk-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-purple), transparent);
+    }
+    
+    .cyberpunk-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+    }
+    
+    .cyberpunk-heading {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    
+    .cyberpunk-heading::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--neon-green), transparent);
+    }
+    
+    /* Header styles */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background-color: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(184, 41, 247, 0.3);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    
+    .logo .purple {
+      color: var(--neon-purple);
+    }
+    
+    .logo .green {
+      color: var(--neon-green);
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    nav ul li {
+      margin-left: 30px;
+    }
+    
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    nav ul li a:hover {
+      color: var(--neon-green);
+    }
+    
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    
+    /* Page header */
+    .page-header {
+      padding: 140px 0 60px;
+      text-align: center;
+      background: linear-gradient(to bottom, rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 1)), url('circuit-pattern.png');
+      background-size: cover;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--neon-purple), transparent);
+    }
+    
+    .page-header h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    
+    .page-header p {
+      font-size: 18px;
+      max-width: 800px;
+      margin: 0 auto;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    /* Search section */
+    .search-section {
+      padding: 40px 0;
+    }
+    
+    .search-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 15px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(184, 41, 247, 0.5);
+      border-radius: 4px;
+      color: white;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: var(--neon-purple);
+      box-shadow: 0 0 10px rgba(184, 41, 247, 0.5);
+    }
+    
+    /* FAQ section */
+    .faq-section {
+      padding: 40px 0 80px;
+    }
+    
+    .faq-categories {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    
+    .category-btn {
+      background-color: transparent;
+      border: 1px solid var(--neon-purple);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .category-btn:hover, .category-btn.active {
+      background-color: var(--neon-purple);
+      box-shadow: 0 0 10px rgba(184, 41, 247, 0.5);
+    }
+    
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .faq-item {
+      margin-bottom: 20px;
+    }
+    
+    .faq-question {
+      background-color: rgba(10, 10, 10, 0.8);
+      border-left: 4px solid var(--neon-purple);
+      padding: 15px 20px;
+      border-radius: 4px;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+    
+    .faq-question:hover {
+      background-color: rgba(184, 41, 247, 0.1);
+    }
+    
+    .faq-question h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+    
+    .faq-toggle {
+      width: 20px;
+      height: 20px;
+      position: relative;
+    }
+    
+    .faq-toggle::before,
+    .faq-toggle::after {
+      content: '';
+      position: absolute;
+      background-color: var(--neon-green);
+      transition: all 0.3s ease;
+    }
+    
+    .faq-toggle::before {
+      top: 9px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+    }
+    
+    .faq-toggle::after {
+      top: 0;
+      left: 9px;
+      width: 2px;
+      height: 100%;
+    }
+    
+    .faq-answer {
+      background-color: rgba(10, 10, 10, 0.5);
+      border-left: 4px solid var(--neon-green);
+      padding: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      margin-top: 2px;
+      border-radius: 0 0 4px 4px;
+    }
+    
+    .faq-answer-content {
+      padding: 0 20px;
+    }
+    
+    .faq-item.active .faq-question {
+      background-color: rgba(184, 41, 247, 0.1);
+    }
+    
+    .faq-item.active .faq-toggle::after {
+      transform: rotate(90deg);
+      opacity: 0;
+    }
+    
+    .faq-item.active .faq-answer {
+      padding: 15px 0;
+      max-height: 1000px;
+    }
+    
+    /* Support section */
+    .support-section {
+      padding: 80px 0;
+      background-color: rgba(10, 10, 10, 0.5);
+      border-top: 1px solid rgba(184, 41, 247, 0.2);
+      border-bottom: 1px solid rgba(57, 255, 20, 0.2);
+    }
+    
+    .support-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    
+    .support-content h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: var(--neon-purple);
+    }
+    
+    .support-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .support-links li {
+      margin-bottom: 15px;
+    }
+    
+    .support-links a {
+      color: var(--neon-green);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+    
+    .support-links a:hover {
+      color: var(--neon-purple);
+    }
+    
+    .support-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(57, 255, 20, 0.1);
+      border: 1px solid var(--neon-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      transition: all 0.3s ease;
+    }
+    
+    .support-links a:hover .support-icon {
+      background-color: rgba(184, 41, 247, 0.1);
+      border-color: var(--neon-purple);
+    }
+    
+    .support-image {
+      height: 300px;
+      background: linear-gradient(135deg, rgba(184, 41, 247, 0.2), rgba(57, 255, 20, 0.2));
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--dark-bg);
+      border-top: 1px solid rgba(57, 255, 20, 0.3);
+      padding: 60px 0 30px;
+    }
+    
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+    
+    .footer-column h3 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .footer-column p {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: var(--neon-green);
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .social-link {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 24px;
+      transition: color 0.3s ease;
+    }
+    
+    .social-link:hover {
+      color: var(--neon-purple);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(184, 41, 247, 0.3);
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .support-container {
+        grid-template-columns: 1fr;
+      }
+      
+      nav ul {
+        display: none;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .page-header h1 {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <div class="logo">
+        <span class="purple">MINI</span><span class="green">GAME</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="games.html">Games</a></li>
+          <li><a href="tokenomics.html">Tokenomics</a></li>
+          <li><a href="nft.html">NFTs</a></li>
+          <li><a href="lootwheel.html">Lootwheel</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </nav>
+      <button class="btn btn-primary">Connect Wallet</button>
+      <button class="mobile-menu-btn">☰</button>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1 class="cyberpunk-heading">Frequently Asked Questions</h1>
+      <p>Find answers to common questions about MINIGAME, our tokens, games, and more.</p>
+    </div>
+  </section>
+
+  <!-- Search Section -->
+  <section class="search-section">
+    <div class="container">
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="Search for questions..." id="faq-search">
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="faq-categories">
+        <button class="category-btn active" data-category="all">All</button>
+        <button class="category-btn" data-category="general">General</button>
+        <button class="category-btn" data-category="games">Games</button>
+        <button class="category-btn" data-category="tokens">Tokens</button>
+        <button class="category-btn" data-category="nft">NFTs</button>
+        <button class="category-btn" data-category="wallet">Wallet</button>
+      </div>
+      
+      <div class="faq-container">
+        <!-- General FAQs -->
+        <div class="faq-item" data-category="general">
+          <div class="faq-question">
+            <h3>What is MINIGAME?</h3>
+            <div class="faq-toggle"></div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p>MINIGAME is a Web3 gaming platform featuring fast-paced 3-minute games on the Solana blockchain. Our platform combines fun, accessible gameplay with blockchain technology, allowing players to earn rewards in the form of WHEEL tokens, which can be used to acquire NFTs and other in-game benefits.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item" data-category="general">
+          <div class="faq-question">
+            <h3>How do I get started with MINIGAME?</h3>
+            <div class="faq-toggle"></div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p>To get started with MINIGAME:</p>
+              <ol>
+                <li>Create a Solana wallet (like Phantom)</li>
+                <li>Connect your wallet to our platform</li>
+                <li>Choose a game to play</li>
+                <li>Start earning WHEEL tokens based on your performance</li>
+                <li>Use your WHEEL tokens on the lootwheel to win NFTs and other rewards</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Games FAQs -->
+        <div class="faq-item" data-category="games">
+          <div class="faq-question">
+            <h3>What games are available on MINIGAME?</h3>
+            <div class="faq-toggle"></div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p>MINIGAME currently offers three games:</p>
+              <ul>
+                <li><strong>Neon Agar</strong>: A 3D Agar.io variant in cyberpunk style</li>
+                <li><strong>Cyber Slither</strong>: A Slither-like game with neon aesthetics</li>
+                <li><strong>Grid Conquest</strong>: A Paper.io-like territory control game</li>
+              </ul>
+              <p>All games are designed to be played in short 3-minute sessions and feature our signature neon-cyberpunk 3D style.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item" data-category="games">
+          <div class="faq-question">
+            <h3>How do I earn rewards while playing?</h3>
+            <div class="faq-toggle"></div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p>After each game session, you'll earn WHEEL tokens based on your performance. The amount of WHEEL tokens you earn is also affected by your SPINZ token holdings, which provide a multiplier effect. The more SPINZ you hold, the higher your reward multiplier will be.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tokens FAQs -->
+        <div class="faq-item" data-category="tokens">
+          <div class="faq-question">
+            <h3>What are SPINZ and WHEEL tokens?</h3>
+            <div class="faq-toggle"></div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p>MINIGAME uses a dual-token system:</p>
+              <ul>
+                <li><strong>SPINZ</strong>: The main trading token with a total supply of 1 billion. Holding SPINZ increases your reward multiplier when earning WHEEL tokens.</li>
+                <li><strong>WHEEL</strong>: The in-game reward token earned through gameplay. WHEEL can be spent on the lootwheel for a chance to win NFTs, game boosts, or additional SPINZ tokens.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item" data-category="tokens">
+          <div class="faq-question">
+            <h3>How does the token multiplier system work?</h3>
+            <div class="faq-toggle"></div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p>The token multiplier system increases your WHEEL token earnings based on how many SPINZ tokens you hold:</p>
+              <table style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+                <tr style="border-bottom: 1px solid rgba(184, 41, 247, 0.3);">
+                  <th style="text-align: left; padding: 8px 0;">SPINZ in Wallet</th>
+                  <th style="text-align: left; padding: 8px 0;">Multiplier</th>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(184, 41, 247, 0.3);">
+                  <td style="padding: 8px 0;">0 – 99,999</td>
+                  <td style="color: var(--neon-purple);">0.1×</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(184, 41, 247, 0.3);">
+                  <td style="padding: 8px 0;">100,000</td>
+                  <td style="color: var(--neon-purple);">1×</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(184, 41, 247, 0.3);">
+                  <td style="padding: 8px 0;">100,001 – 499,999</td>
+                  <td style="color: var(--neon-purple);">2×</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(184, 41, 247, 0.3);">
+                  <td style="padding: 8px 0;">500,000 – 1,499,999</td>
+                  <td style="color: var(--neon-purple);">3×</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(184, 41, 247, 0.3);">
+                  <td style="padding: 8px 0;">1,500,000 – 4,999,999</td>
+                  <td style="color: var(--neon-purple);">4×</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(184, 41, 247, 0.3);">
+                  <td style="padding: 8px 0;">5,000,000 – 24,999,999</td>
+                  <td style="color: var(--neon-purple);">5×</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0;">≥ 25,000,000</td>
+                  <td style="color: var(--neon-purple);">8×</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <!-- NFT FAQs -->
+        <div class="faq-item" data-category="nft">
+          <div class="faq-question">
+            <h3>What are MINIGAME NFTs?</h3>
+            <div class="faq-toggle"></div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p>MINIGAME NFTs are unique digital assets on the Solana blockchain that provide special abilities and bonuses in our games. Each NFT represents a meme-character with specific in-game benefits, such as double speed, increased token rewards, or immunity to attacks.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item" data-category="nft">
+          <div class="faq-question">
+            <h3>How do I get NFTs?</h3>
+            <div class="faq-toggle"></div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p>There are two main ways to acquire NFTs on MINIGAME:</p>
+              <ol>
+                <li><strong>Lootwheel</strong>: Spend your WHEEL tokens to spin the lootwheel for a chance to win NFTs</li>
+                <li><strong>Direct Minting</strong>: Use WHEEL tokens to mint NFTs directly from our marketplace</li>
+              </ol>
+              <p>Once acquired, NFTs will automatically be available for use in games, providing their unique benefits.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Wallet FAQs -->
+        <div class="faq-item" data-category="wallet">
+          <div class="faq-question">
+            <h3>Which wallets are supported?</h3>
+            <div class="faq-toggle"></div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p>MINIGAME supports all major Solana wallets, including:</p>
+              <ul>
+                <li>Phantom</li>
+                <li>Solflare</li>
+                <li>Backpack</li>
+                <li>Sollet</li>
+                <li>Slope</li>
+              </ul>
+              <p>We recommend using Phantom wallet for the best experience.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item" data-category="wallet">
+          <div class="faq-question">
+            <h3>How do I connect my wallet?</h3>
+            <div class="faq-toggle"></div>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              <p>To connect your wallet to MINIGAME:</p>
+              <ol>
+                <li>Click the "Connect Wallet" button in the top right corner of the website</li>
+                <li>Select your wallet provider from the list</li>
+                <li>Approve the connection request in your wallet</li>
+                <li>Once connected, you'll see your wallet address and token balances in the top right corner</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Support Section -->
+  <section class="support-section">
+    <div class="container">
+      <div class="support-container">
+        <div class="support-content">
+          <h2>Need More Help?</h2>
+          <p>If you couldn't find the answer to your question, our support team is here to help. Reach out to us through one of the following channels:</p>
+          <ul class="support-links">
+            <li>
+              <a href="https://t.me/MINIGAME_sol" target="_blank" rel="noopener noreferrer">
+                <div class="support-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21.5 15.5a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"></path>
+                    <path d="M18.5 12h-16"></path>
+                    <path d="M2.5 8v8"></path>
+                    <path d="M8.5 16.5v-9"></path>
+                    <path d="M14.5 12H8"></path>
+                  </svg>
+                </div>
+                Join our Telegram community
+              </a>
+            </li>
+            <li>
+              <a href="https://x.com/MINIGAME_sol" target="_blank" rel="noopener noreferrer">
+                <div class="support-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+                  </svg>
+                </div>
+                Follow us on Twitter
+              </a>
+            </li>
+            <li>
+              <a href="contact.html">
+                <div class="support-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                </div>
+                Contact our support team
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="support-image">
+          <span>SUPPORT</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h3 class="cyberpunk-heading">MINIGAME</h3>
+          <p>Web3 Gaming Platform with 3-minute games on Solana blockchain.</p>
+        </div>
+        <div class="footer-column">
+          <h3 style="color: var(--neon-green);">Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="games.html">Games</a></li>
+            <li><a href="tokenomics.html">Tokenomics</a></li>
+            <li><a href="nft.html">NFTs</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3 style="color: var(--neon-green);">Resources</h3>
+          <ul class="footer-links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3 style="color: var(--neon-green);">Connect With Us</h3>
+          <div class="social-links">
+            <a href="https://t.me/MINIGAME_sol" target="_blank" rel="noopener noreferrer" class="social-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.5 15.5a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"></path>
+                <path d="M18.5 12h-16"></path>
+                <path d="M2.5 8v8"></path>
+                <path d="M8.5 16.5v-9"></path>
+                <path d="M14.5 12H8"></path>
+              </svg>
+            </a>
+            <a href="https://x.com/MINIGAME_sol" target="_blank" rel="noopener noreferrer" class="social-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 MINIGAME. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mobile menu toggle
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      const navMenu = document.querySelector('nav ul');
+      
+      if (mobileMenuBtn && navMenu) {
+        mobileMenuBtn.addEventListener('click', function() {
+          navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+          if (navMenu.style.display === 'flex') {
+            navMenu.style.position = 'absolute';
+            navMenu.style.top = '100%';
+            navMenu.style.left = '0';
+            navMenu.style.right = '0';
+            navMenu.style.flexDirection = 'column';
+            navMenu.style.backgroundColor = 'rgba(10, 10, 10, 0.95)';
+            navMenu.style.padding = '20px';
+            navMenu.style.zIndex = '1000';
+            
+            const navItems = navMenu.querySelectorAll('li');
+            navItems.forEach(item => {
+              item.style.margin = '10px 0';
+            });
+          }
+        });
+      }
+      
+      // FAQ accordion functionality
+      const faqItems = document.querySelectorAll('.faq-item');
+      
+      faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        question.addEventListener('click', () => {
+          // Close all other items
+          faqItems.forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('active');
+            }
+          });
+          
+          // Toggle current item
+          item.classList.toggle('active');
+        });
+      });
+      
+      // Category filtering
+      const categoryButtons = document.querySelectorAll('.category-btn');
+      
+      categoryButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Remove active class from all buttons
+          categoryButtons.forEach(btn => {
+            btn.classList.remove('active');
+          });
+          
+          // Add active class to clicked button
+          button.classList.add('active');
+          
+          const category = button.getAttribute('data-category');
+          
+          // Show/hide FAQ items based on category
+          faqItems.forEach(item => {
+            if (category === 'all' || item.getAttribute('data-category') === category) {
+              item.style.display = 'block';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+        });
+      });
+      
+      // Search functionality
+      const searchInput = document.getElementById('faq-search');
+      
+      searchInput.addEventListener('input', () => {
+        const searchTerm = searchInput.value.toLowerCase();
+        
+        faqItems.forEach(item => {
+          const question = item.querySelector('.faq-question h3').textContent.toLowerCase();
+          const answer = item.querySelector('.faq-answer-content').textContent.toLowerCase();
+          
+          if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+        
+        // Reset category buttons
+        categoryButtons.forEach(btn => {
+          btn.classList.remove('active');
+        });
+        
+        // Set 'All' button as active
+        categoryButtons[0].classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games - MINIGAME Web3 Gaming Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Base styles */
+    :root {
+      --neon-purple: #b829f7;
+      --neon-green: #39ff14;
+      --dark-bg: #0a0a0a;
+      --electric-blue: #00ffff;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--dark-bg);
+      color: white;
+      font-family: 'Rajdhani', sans-serif;
+      line-height: 1.6;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Orbitron', sans-serif;
+      margin-top: 0;
+    }
+    
+    /* Utility classes */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .neon-purple-glow {
+      text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple), 0 0 15px var(--neon-purple);
+    }
+    
+    .neon-green-glow {
+      text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green), 0 0 15px var(--neon-green);
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 4px;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary {
+      background-color: transparent;
+      border: 2px solid var(--neon-purple);
+      color: white;
+      box-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple);
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--neon-purple);
+      box-shadow: 0 0 10px var(--neon-purple), 0 0 20px var(--neon-purple), 0 0 30px var(--neon-purple);
+    }
+    
+    .btn-secondary {
+      background-color: transparent;
+      border: 2px solid var(--neon-green);
+      color: white;
+      box-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
+    }
+    
+    .btn-secondary:hover {
+      background-color: var(--neon-green);
+      color: black;
+      box-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green), 0 0 30px var(--neon-green);
+    }
+    
+    .cyberpunk-card {
+      background-color: rgba(10, 10, 10, 0.8);
+      border-left: 4px solid var(--neon-purple);
+      padding: 24px;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(184, 41, 247, 0.3);
+    }
+    
+    .cyberpunk-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-purple), transparent);
+    }
+    
+    .cyberpunk-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+    }
+    
+    .cyberpunk-heading {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    
+    .cyberpunk-heading::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--neon-green), transparent);
+    }
+    
+    /* Header styles */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background-color: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(184, 41, 247, 0.3);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    
+    .logo .purple {
+      color: var(--neon-purple);
+    }
+    
+    .logo .green {
+      color: var(--neon-green);
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    nav ul li {
+      margin-left: 30px;
+    }
+    
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    nav ul li a:hover {
+      color: var(--neon-green);
+    }
+    
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    
+    /* Page header */
+    .page-header {
+      padding: 140px 0 60px;
+      text-align: center;
+      background: linear-gradient(to bottom, rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 1)), url('circuit-pattern.png');
+      background-size: cover;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--neon-purple), transparent);
+    }
+    
+    .page-header h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    
+    .page-header p {
+      font-size: 18px;
+      max-width: 800px;
+      margin: 0 auto;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    /* Game section */
+    .game-section {
+      padding: 80px 0;
+    }
+    
+    .game-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 80px;
+    }
+    
+    .game-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    
+    .game-item:nth-child(even) {
+      direction: rtl;
+    }
+    
+    .game-item:nth-child(even) .game-content {
+      direction: ltr;
+    }
+    
+    .game-image {
+      height: 300px;
+      background: linear-gradient(135deg, rgba(184, 41, 247, 0.2), rgba(57, 255, 20, 0.2));
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .game-image::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(184, 41, 247, 0.1) 0%, rgba(57, 255, 20, 0.1) 100%);
+      z-index: 1;
+    }
+    
+    .game-content h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: var(--neon-purple);
+    }
+    
+    .game-features {
+      margin: 25px 0;
+      padding: 0;
+      list-style: none;
+    }
+    
+    .game-features li {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: flex-start;
+    }
+    
+    .game-features li::before {
+      content: '>';
+      color: var(--neon-green);
+      margin-right: 10px;
+      font-weight: bold;
+    }
+    
+    .game-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+    }
+    
+    /* How to play section */
+    .how-to-play {
+      padding: 80px 0;
+      background-color: rgba(10, 10, 10, 0.5);
+      border-top: 1px solid rgba(184, 41, 247, 0.2);
+      border-bottom: 1px solid rgba(57, 255, 20, 0.2);
+    }
+    
+    .how-to-play h2 {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 50px;
+    }
+    
+    .steps-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+    
+    .step-item {
+      text-align: center;
+    }
+    
+    .step-number {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: rgba(184, 41, 247, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--neon-purple);
+      border: 2px solid var(--neon-purple);
+      box-shadow: 0 0 10px rgba(184, 41, 247, 0.5);
+    }
+    
+    /* CTA section */
+    .cta {
+      padding: 100px 0;
+      text-align: center;
+    }
+    
+    .cta h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    
+    .cta p {
+      font-size: 18px;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--dark-bg);
+      border-top: 1px solid rgba(57, 255, 20, 0.3);
+      padding: 60px 0 30px;
+    }
+    
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+    
+    .footer-column h3 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .footer-column p {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: var(--neon-green);
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .social-link {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 24px;
+      transition: color 0.3s ease;
+    }
+    
+    .social-link:hover {
+      color: var(--neon-purple);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(184, 41, 247, 0.3);
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .game-item {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .game-item:nth-child(even) {
+        direction: ltr;
+      }
+      
+      nav ul {
+        display: none;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .page-header h1 {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <div class="logo">
+        <span class="purple">MINI</span><span class="green">GAME</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="games.html">Games</a></li>
+          <li><a href="tokenomics.html">Tokenomics</a></li>
+          <li><a href="nft.html">NFTs</a></li>
+          <li><a href="lootwheel.html">Lootwheel</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </nav>
+      <button class="btn btn-primary">Connect Wallet</button>
+      <button class="mobile-menu-btn">☰</button>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1 class="cyberpunk-heading">
+        <span class="neon-purple-glow">3 MINUTE</span> 
+        <span class="neon-green-glow">GAMES</span>
+      </h1>
+      <p>Fast-paced, action-packed games in a neon-cyberpunk 3D style. Play, earn, and dominate the digital realm.</p>
+    </div>
+  </section>
+
+  <!-- Games Section -->
+  <section class="game-section">
+    <div class="container">
+      <div class="game-container">
+        <!-- Game 1 -->
+        <div class="game-item">
+          <div class="game-image">
+            <span>NEON AGAR</span>
+          </div>
+          <div class="game-content">
+            <h2>Neon Agar</h2>
+            <p>A 3D Agar.io variant set in a vibrant cyberpunk universe. Grow your neon orb by absorbing smaller players and avoiding larger ones in this fast-paced multiplayer game.</p>
+            <ul class="game-features">
+              <li>Immersive 3D gameplay with neon aesthetics</li>
+              <li>Multiplayer battles with up to 50 players</li>
+              <li>Special abilities unlocked with NFTs</li>
+              <li>Earn WHEEL tokens based on your performance</li>
+              <li>Customizable orb skins and effects</li>
+            </ul>
+            <div class="game-buttons">
+              <a href="#" class="btn btn-primary">Play Now</a>
+              <a href="#how-to-play" class="btn btn-secondary">How to Play</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Game 2 -->
+        <div class="game-item">
+          <div class="game-image">
+            <span>CYBER SLITHER</span>
+          </div>
+          <div class="game-content">
+            <h2>Cyber Slither</h2>
+            <p>A Slither-like game with neon aesthetics. Navigate your digital snake through a grid of light, collecting tokens and avoiding obstacles while competing against other players.</p>
+            <ul class="game-features">
+              <li>Smooth, responsive controls for precise movement</li>
+              <li>Collect WHEEL tokens scattered throughout the arena</li>
+              <li>Special power-ups and boosts</li>
+              <li>Competitive leaderboard with daily rewards</li>
+              <li>NFT skins with unique visual effects</li>
+            </ul>
+            <div class="game-buttons">
+              <a href="#" class="btn btn-primary">Play Now</a>
+              <a href="#how-to-play" class="btn btn-secondary">How to Play</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Game 3 -->
+        <div class="game-item">
+          <div class="game-image">
+            <span>GRID CONQUEST</span>
+          </div>
+          <div class="game-content">
+            <h2>Grid Conquest</h2>
+            <p>A Paper.io-like territory control game. Claim your space in the digital realm by drawing boundaries and expanding your cyber territory while defending against other players.</p>
+            <ul class="game-features">
+              <li>Strategic territory capture gameplay</li>
+              <li>Defend your territory from rival players</li>
+              <li>Special abilities to sabotage opponents</li>
+              <li>Earn WHEEL tokens based on territory size</li>
+              <li>NFT boosters for increased territory control</li>
+            </ul>
+            <div class="game-buttons">
+              <a href="#" class="btn btn-primary">Play Now</a>
+              <a href="#how-to-play" class="btn btn-secondary">How to Play</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Play Section -->
+  <section id="how-to-play" class="how-to-play">
+    <div class="container">
+      <h2 class="cyberpunk-heading">How to Play</h2>
+      <div class="steps-container">
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <h3>Connect Wallet</h3>
+          <p>Connect your Solana wallet (e.g., Phantom) to the game platform to track your progress and store your rewards.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <h3>Choose a Game</h3>
+          <p>Select one of our three exciting games: Neon Agar, Cyber Slither, or Grid Conquest.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <h3>Play & Earn</h3>
+          <p>Play the game and earn WHEEL tokens based on your performance and the amount of SPINZ tokens you hold.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-number">4</div>
+          <h3>Spend Rewards</h3>
+          <p>Use your earned WHEEL tokens on the lootwheel to win NFTs, boosts, or additional SPINZ tokens.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <h2 class="cyberpunk-heading">Ready to Play?</h2>
+      <p>Connect your wallet and start playing to earn rewards in the MINIGAME ecosystem.</p>
+      <a href="#" class="btn btn-primary">Connect Wallet</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h3 class="cyberpunk-heading">MINIGAME</h3>
+          <p>Web3 Gaming Platform with 3-minute games on Solana blockchain.</p>
+        </div>
+        <div class="footer-column">
+          <h3 style="color: var(--neon-green);">Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="games.html">Games</a></li>
+            <li><a href="tokenomics.html">Tokenomics</a></li>
+            <li><a href="nft.html">NFTs</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3 style="color: var(--neon-green);">Resources</h3>
+          <ul class="footer-links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3 style="color: var(--neon-green);">Connect With Us</h3>
+          <div class="social-links">
+            <a href="https://t.me/MINIGAME_sol" target="_blank" rel="noopener noreferrer" class="social-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.5 15.5a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"></path>
+                <path d="M18.5 12h-16"></path>
+                <path d="M2.5 8v8"></path>
+                <path d="M8.5 16.5v-9"></path>
+                <path d="M14.5 12H8"></path>
+              </svg>
+            </a>
+            <a href="https://x.com/MINIGAME_sol" target="_blank" rel="noopener noreferrer" class="social-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 MINIGAME. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Simple mobile menu toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      const navMenu = document.querySelector('nav ul');
+      
+      if (mobileMenuBtn && navMenu) {
+        mobileMenuBtn.addEventListener('click', function() {
+          navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+          if (navMenu.style.display === 'flex') {
+            navMenu.style.position = 'absolute';
+            navMenu.style.top = '100%';
+            navMenu.style.left = '0';
+            navMenu.style.right = '0';
+            navMenu.style.flexDirection = 'column';
+            navMenu.style.backgroundColor = 'rgba(10, 10, 10, 0.95)';
+            navMenu.style.padding = '20px';
+            navMenu.style.zIndex = '1000';
+            
+            const navItems = navMenu.querySelectorAll('li');
+            navItems.forEach(item => {
+              item.style.margin = '10px 0';
+            });
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
